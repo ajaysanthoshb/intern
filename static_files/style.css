@@ -1,0 +1,168 @@
+body{
+   min-height:100vh;
+   width: 100%;
+   padding: 0%;
+   margin: 0%;
+}
+.container{
+    display: flex;
+    width: 100%;
+    height: 90vh;
+}
+
+.bar{
+    background-color: gainsboro;
+    height:10vh;
+    display: flex;
+    justify-content: center;
+}
+
+#ele1{
+    margin-top: 0.5%;
+    margin-left: -10%;
+    margin-right:10%;
+    background-color: red;
+    border-radius:50% ;
+    padding:0.5%;
+    border: 2px groove black;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    box-shadow: 0px 2px 15px red;
+}
+
+/* #ele1:hover{
+    background-color: burlywood;
+} */
+
+#ele2{
+    margin-top: 0.5%;
+    margin-left: 10%;
+    background-color: red;
+    border-radius:50% ;
+    padding:0.5%;
+    border: 2px groove black;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    box-shadow: 0px 2px 15px red;
+}
+
+/* #ele2:hover{
+    background-color: burlywood;
+} */
+
+.chatting{
+    width: 40%;
+    max-height: 100vh;
+    position: relative;
+    left : 5%;
+    background-color: #96fff3;
+    animation: color_changing 5s infinite;
+    border: 7px groove red;
+}
+
+@keyframes color_changing {
+    0%{
+        box-shadow: 5px 5px 15px cyan,-5px -5px 15px cyan;
+    }
+  
+    51%{
+        box-shadow: 5px 5px 15px #7300d1,-5px -5px 15px #7300d1;
+    }
+
+    100%{
+        box-shadow: 5px 5px 15px cyan,-5px -5px 15px cyan;
+    }
+    
+    
+}
+
+
+
+.brand{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #b3ffbd;
+}
+
+.brand h1{
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.msg_area{
+    height:56vh;
+    padding:5%;
+    display: flex;
+    flex-direction: column;
+    overflow-y : auto;
+    padding-top: 0%;
+}
+
+textarea{
+    width:85%;
+    padding : 5px;
+    border-radius: 20%;
+    font-size: 20px;
+    cursor: grab;
+    margin-top: 2%;
+    background: #ffe499;
+    transition:all 0.75s ease ;
+}
+textarea:hover{
+    background: white;
+}
+.outgoing_msg{
+    width:70%;
+    position: relative;
+    left:30%;
+    margin-bottom: 10px;
+}
+.outgoing_msg h3{
+    text-align: end;
+    padding: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.outgoing_msg p{
+    background: #d494ff;
+    padding: 5%;
+    border-radius: 10%;
+    font-size: 20px;
+}
+.incoming_msg{
+    width:70%;
+    margin-bottom: 10px;
+}
+.incoming_msg p{
+    background: #ff94cf;
+    border-radius: 10%;
+    padding: 5%;
+    font-size: 20px;
+}
+
+
+
+
+.incoming_msg h3{
+    padding: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+img{
+    position: absolute;
+    opacity: 0.8;
+}
+
+.thunder{
+    position: relative;
+    left : 10px;
+    z-index: 3;
+    transform:rotate(30deg);
+}
+
+#heading{
+    position: relative;
+    left:5px;
+}
