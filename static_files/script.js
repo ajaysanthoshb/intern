@@ -2,9 +2,10 @@ const socket = io()
 var persons_counter=0;
 var person,myStream;
 var mute_on = true;
-var video_off = true;
+var video_off = true,chat_on = true;
 var mute_button = document.getElementById('ele1')
 var video_button = document.getElementById('ele2')
+var chat_button = document.getElementById('ele3')
 var our_user_id;
 do{
     person = prompt('Enter name')
@@ -12,7 +13,12 @@ do{
 }while(!person)
 
 var ROOM_ID , call_receiver, user_attribute
-const video_grid = document.getElementById("videogrid")
+
+//huge elements
+var video_grid = document.getElementById("videogrid")
+var chatting = document.querySelector('.chatting')
+var container = document.querySelector('.container')
+
 const peers = {}
 var arr = []
 var counter = 0
@@ -75,7 +81,8 @@ navigator.mediaDevices.getUserMedia({
 
    
     socket.on('user-connected',(userID)=>{
-        setTimeout(connectToNewUser,300,userID,stream)
+        // setTimeout(connectToNewUser,300,userID,stream)
+        connectToNewUser(userID,stream)
     })
 
 })
@@ -91,7 +98,7 @@ function connectToNewUser(userID, stream){
         conn.send(our_user_id)
     })
 
-    setTimeout(calling_to_peer,500,userID,stream)
+    setTimeout(calling_to_peer,300,userID,stream)
 }
 
 function calling_to_peer(userID,stream)
@@ -250,12 +257,12 @@ socket.on('broadcast_msg',(mesage,other_room_id)=>{
 
 mute_button.addEventListener('click',()=>{
     if(mute_on){
-        mute_button.src = "./mute-off.png"
+        mute_button.src = "./images/mute-off.png"
         mute_button.style.backgroundColor = "white"
         mute_on = false
     }
     else{
-        mute_button.src = "./mute_on.png"
+        mute_button.src = "./images/mute_on.png"
         mute_button.style.backgroundColor = "red"
         mute_on = true
     }
@@ -265,16 +272,41 @@ mute_button.addEventListener('click',()=>{
 
 video_button.addEventListener('click',()=>{
     if(video_off){
-        video_button.src = "./video_on.png"
+        video_button.src = "./images/video_on.png"
         video_button.style.backgroundColor = "white"
         video_off = false
     }
     else{
-        video_button.src = "./video_off.png"
+        video_button.src = "./images/video_off.png"
         video_button.style.backgroundColor = "red"
         video_off = true
     }
     myStream.getVideoTracks()[0].enabled = !(myStream.getVideoTracks()[0].enabled);
+})
+
+chat_button.addEventListener('click',()=>{
+    if(chat_on){
+        chat_button.src = "./images/chat_off.png"
+        chat_button.style.boxShadow = "0px 2px 15px black"
+        chat_button.style.borderColor = "black"
+        chatting.style.display = "none"
+        video_grid.style.width = "100%"
+        // grid-template-columns: repeat(2,45%);
+        // grid-column-gap: 10%;
+        video_grid.style.gridTemplateColumns = "repeat(3,30%)"
+        video_grid.style.gridColumnGap = "4%";
+        chat_on = false
+    }
+    else{
+        chat_button.src = "./images/chat_on.png"
+        chat_button.style.boxShadow = "0px 2px 15px #5c0ccc"
+        chat_button.style.borderColor = "#5c0ccc"
+        chatting.style.display = "block"
+        video_grid.style.width = "55%"
+        video_grid.style.gridTemplateColumns = "repeat(2,45%)"
+        video_grid.style.gridColumnGap = "9%";
+        chat_on = true
+    }
 })
 
 

@@ -1,13 +1,32 @@
+*{
+    transition: all 0.3s ease;
+    
+}
+
+:root{
+    font-size: 16px;
+}
+body::-webkit-scrollbar {
+    width: 0.3rem;
+}
+body::-webkit-scrollbar-track {
+    background: #1e1e24;
+}
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
 body{
    min-height:100vh;
    width: 100%;
    padding: 0%;
    margin: 0%;
+   overflow-x: auto;
 }
 .container{
     display: flex;
     width: 100%;
-    height: 90vh;
+    height: auto;
 }
 
 .bar{
@@ -15,6 +34,11 @@ body{
     height:10vh;
     display: flex;
     justify-content: center;
+    border: 2px groove gainsboro;
+}
+
+video{
+    border : 2px groove red;
 }
 
 #ele1{
@@ -46,6 +70,18 @@ body{
     box-shadow: 0px 2px 15px red;
 }
 
+#ele3{
+    position: absolute;
+    right : 5%;
+    margin-top: 0.5%;
+    padding:0.5%;
+    border-radius: 50%;
+    border: 2px groove #5c0ccc;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    box-shadow: 0px 2px 15px #5c0ccc;
+}
+
 /* #ele2:hover{
     background-color: burlywood;
 } */
@@ -54,10 +90,11 @@ body{
     width: 40%;
     max-height: 100vh;
     position: relative;
-    left : 5%;
+    left : 2%;
     background-color: #96fff3;
     animation: color_changing 5s infinite;
-    border: 7px groove red;
+    border: 3px groove red;
+    transition: all 0.7s ease;
 }
 
 @keyframes color_changing {
@@ -81,7 +118,7 @@ body{
 .brand{
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     background: #b3ffbd;
 }
 

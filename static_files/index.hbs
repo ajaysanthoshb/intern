@@ -12,14 +12,16 @@
 
     <style>
         #videogrid{
-            width:fit-content;
-            max-width: 50%;
+            width:55%;
+            height: 88vh;
+            overflow-y:auto;
             display: grid;
-            grid-template-columns: 45% 45%;
-            grid-column-gap: 10%;
+            grid-template-columns: repeat(2,45%);
+            grid-column-gap: 9%;
             grid-row-gap: 5%;
             grid-auto-rows:45%;
-            background-color: aqua; 
+            background-color: black;
+            border : 4px groove purple;
         }
 
         video{
@@ -39,9 +41,9 @@
         </div>
         <div class="chatting">
             <div class = "brand">
-                <img src="icon.png" alt="" width="65px" height="65px">
+                <img src="./images/icon.png" alt="" width="65px" height="65px">
                 <h1 class = "thunder">⚡</h1>
-                <h1 id = "heading">Chat For Fun</h1>
+                <h1 id = "heading">MESSENGER</h1>
             </div>
 
             <div class = "msg_area">
@@ -55,8 +57,10 @@
     </div>
 
     <div class = "bar">
-        <img src="./mute_on.png" alt="" id="ele1" width="40px" height="40px">
-        <img src="./video_off.png" alt="" id="ele2" width="40px" height="40px">
+        <img src="./images/mute_on.png" alt="" id="ele1" width="40px" height="40px">
+        <img src="./images/video_off.png" alt="" id="ele2" width="40px" height="40px">
+        <img src="./images/chat_on.png" alt="" id="ele3" width="40px" height="40px">
+
     </div>
    
 </body>
