@@ -18,6 +18,19 @@ var ROOM_ID , call_receiver, user_attribute
 var video_grid = document.getElementById("videogrid")
 var chatting = document.querySelector('.chatting')
 var container = document.querySelector('.container')
+var video_header = document.querySelector('#video_header')
+var brand = document.querySelector('.brand')
+
+const sideBar = document.getElementById("side-bar");
+
+
+function closeSidebar(){
+    sideBar.setAttribute("data-state","close");
+}
+
+function openSidebar(){
+    sideBar.setAttribute("data-state","open");
+}
 
 const peers = {}
 var arr = []
@@ -32,7 +45,7 @@ const peer = new Peer(undefined ,{host:'/',port:3001})
 // const peer = new Peer(undefined,{host:'peerjs-server.herokuapp.com', secure:true, port:443})
 
 var previous_name,color_index=-1,previous_msg_incomer_name;
-var color_array = ['#ff94cf','#ffff3b','#ff4d5e','#e6dfdf','#7984f7']
+var color_array = ['hsl(180,40%,40%)','hsl(180,50%,55%)','hsl(220,60%,70%)','hsl(220,30%,50%)','hsl(200,70%,60%)']
 var str = `background:${color_array[color_index]}`
 let textarea = document.getElementById('textarea')
 let msg_area = document.querySelector('.msg_area')
@@ -235,7 +248,8 @@ var sendmsg = (msg) =>{
 
 textarea.addEventListener('keyup',(e)=>{
     if(e.key == "Enter"){
-        sendmsg(e.target.value)
+        let cleanText = e.target.value.replace(/<\/?[^>]+(>|$)/g, "");
+        sendmsg(cleanText)
     }
 })
 
@@ -291,10 +305,12 @@ chat_button.addEventListener('click',()=>{
         chat_button.style.borderColor = "black"
         chatting.style.display = "none"
         video_grid.style.width = "100%"
+        video_header.style.width = "100%"
+        brand.style.display = "none"
         // grid-template-columns: repeat(2,45%);
         // grid-column-gap: 10%;
         video_grid.style.gridTemplateColumns = "repeat(3,30%)"
-        video_grid.style.gridColumnGap = "4%";
+        video_grid.style.gridColumnGap = "3%";
         chat_on = false
     }
     else{
@@ -302,9 +318,11 @@ chat_button.addEventListener('click',()=>{
         chat_button.style.boxShadow = "0px 2px 15px #5c0ccc"
         chat_button.style.borderColor = "#5c0ccc"
         chatting.style.display = "block"
-        video_grid.style.width = "55%"
+        video_grid.style.width = "60%"
+        video_header.style.width = "60%"
+        brand.style.display = "flex"
         video_grid.style.gridTemplateColumns = "repeat(2,45%)"
-        video_grid.style.gridColumnGap = "9%";
+        video_grid.style.gridColumnGap = "7%";
         chat_on = true
     }
 })

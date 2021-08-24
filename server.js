@@ -34,7 +34,7 @@ io.on('connection',(socket)=>{
     })
     socket.on('message',(msg,ROOMIE)=>{
         //Send this clients msg to remaining clients
-        socket.broadcast.emit('broadcast_msg',msg,ROOMIE)
+        socket.broadcast.to(socket.roomID).emit('broadcast_msg',msg,ROOMIE)
     })
 })
 
