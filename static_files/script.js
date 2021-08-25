@@ -8,9 +8,19 @@ var video_button = document.getElementById('ele2')
 var chat_button = document.getElementById('ele3')
 var our_user_id;
 do{
-    person = prompt('Enter name')
+    if(person)
+    {
+        if(person.length > 13)
+        {
+            person = prompt('Name should contain max 13 letters')
+        }
+    }
+    else{
+        person = prompt('Enter name')
+    }
     person = person.trim()
-}while(!person)
+}while(person.length <= 0 || person.length > 13)
+
 
 var ROOM_ID , call_receiver, user_attribute
 
@@ -20,7 +30,10 @@ var chatting = document.querySelector('.chatting')
 var container = document.querySelector('.container')
 var video_header = document.querySelector('#video_header')
 var brand = document.querySelector('.brand')
+var persons = document.querySelector('#persons')
 
+addstatus(person,"mine")
+var m = true
 const sideBar = document.getElementById("side-bar");
 
 
@@ -34,7 +47,7 @@ function openSidebar(){
 
 const peers = {}
 var arr = []
-var counter = 0
+var counter = -1
 const my_video = document.createElement('video')
 var id_storer;
 
@@ -59,6 +72,7 @@ socket.on('send_room_id',(roomID)=>{
         our_user_id = id
         console.log('USERID : ', id)
         socket.emit('join-room',ROOM_ID,id)
+        socket.emit('status',person,our_user_id)
     })
 })
 
@@ -76,6 +90,7 @@ navigator.mediaDevices.getUserMedia({
     })
     //This call function executes when P1 calls to P2..
     peer.on('call',(call)=>{
+
         call_receiver = call
         //Sending stream to P1
         console.log('Sending stream to P1')
@@ -85,20 +100,54 @@ navigator.mediaDevices.getUserMedia({
 
         //new user receiving our stream
         call.on('stream',receiver_receiving=>{
-        console.log('Receiving stream from P1')
-        console.log("ID storer = ",arr[counter])
-        addVideoStream(new_video,receiver_receiving,arr[counter])
-        counter++
+            if(m)
+            {
+                counter++
+                m = false
+            }
+            else{
+                m = true
+            }
+            console.log('Receiving stream from P1')
+            console.log('counter',counter)
+            console.log("ID storer = ",arr[counter])
+            addVideoStream(new_video,receiver_receiving,arr[counter])
         })
     })
 
    
     socket.on('user-connected',(userID)=>{
-        // setTimeout(connectToNewUser,300,userID,stream)
-        connectToNewUser(userID,stream)
+        setTimeout(connectToNewUser,100,userID,stream)
+        // connectToNewUser(userID,stream)
     })
 
 })
+
+
+
+socket.on('broadcast_status',(p,u)=>{
+    console.log("person = ",p)
+    console.log("user = ",u)
+    socket.emit('remaining_status',our_user_id,person,p)
+    addstatus(p,u) 
+})
+
+socket.on('receive_status',(u,p1,p2)=>{
+    if (p2 == person){
+        addstatus(p1,u)
+    }
+})
+
+function addstatus(p,u,m="mic")
+{
+    var diving = document.createElement('h2')
+    diving.setAttribute('id',u);
+    let s = `${p} : <i class='material-icons' id = ${p} style = 'color:white; border:1px solid red; border-radius:50%; background : red; padding : 3px;'>mic_off</i>`
+    diving.innerHTML = s
+    persons.appendChild(diving)
+}
+
+
 
 
 
@@ -108,6 +157,7 @@ function connectToNewUser(userID, stream){
 
     var conn = peer.connect(userID)
     conn.on('open',()=>{
+        console.log("Our user id = ",our_user_id)
         conn.send(our_user_id)
     })
 
@@ -145,8 +195,6 @@ function addVideoStream(my_video,stream,person){
         myStream.getVideoTracks()[0].enabled = !(myStream.getVideoTracks()[0].enabled);
         myStream.getAudioTracks()[0].enabled = !(myStream.getAudioTracks()[0].enabled);
     }
-
-
 }
 
 socket.on('user-disconnected',(userID) =>{
@@ -160,8 +208,19 @@ socket.on('user-disconnected',(userID) =>{
     {
         peers[userID].close()
     }
+
+    delete_element(userID)
 })
 
+function delete_element(u){
+    let x = document.getElementsByTagName("h2").length;
+    for(let i = 0; i < x;i++){
+        if(document.getElementsByTagName("h2")[i].id == u){
+            document.getElementsByTagName("h2")[i].remove()
+            break
+        }
+    }
+}
 
 var append_msg = (msg,className) =>{
     let mainDiv = document.createElement('div')

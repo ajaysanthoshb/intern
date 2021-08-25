@@ -36,6 +36,13 @@ io.on('connection',(socket)=>{
         //Send this clients msg to remaining clients
         socket.broadcast.to(socket.roomID).emit('broadcast_msg',msg,ROOMIE)
     })
+    socket.on('status',(person,one_user)=>{
+        socket.broadcast.to(socket.roomID).emit('broadcast_status',person,one_user)
+    })
+
+    socket.on('remaining_status',(u,p1,p2)=>{
+        socket.broadcast.to(socket.roomID).emit('receive_status',u,p1,p2);
+    })
 })
 
 server.listen(port)

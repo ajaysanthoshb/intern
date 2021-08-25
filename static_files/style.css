@@ -6,14 +6,15 @@
 :root{
     font-size: 16px;
 }
-body::-webkit-scrollbar {
-    width: 0.3rem;
+.msg_area::-webkit-scrollbar {
+    width: 0.5rem;
 }
-body::-webkit-scrollbar-track {
-    background: #1e1e24;
+.msg_area::-webkit-scrollbar-track {
+    background: white;
 }
-body::-webkit-scrollbar-thumb {
-    background: #6649b8;
+.msg_area::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 30%);
+    border-radius: 10px;
 }
 
 body{
@@ -288,6 +289,7 @@ button{
     padding: 10px;
     background-color: hsl(0, 0%, 80%);
     border:2px groove black;
+    cursor: pointer;
     color: black;
 }
 
@@ -302,6 +304,10 @@ button{
 img{
     position: absolute;
     opacity: 0.8;
+}
+
+#persons{
+    padding:30px;
 }
 
 .thunder{
